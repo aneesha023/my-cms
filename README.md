@@ -11,7 +11,7 @@ This project is a fully functional backend CMS built using [Payload CMS](https:/
 
 ## 🌐 Live Demo
 
-[[https://my-cms-five.vercel.app/admin]((https://my-cms-five.vercel.app/))
+[https://my-cms-five.vercel.app/]((https://my-cms-five.vercel.app/))
 
 ---
 
