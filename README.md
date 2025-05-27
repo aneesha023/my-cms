@@ -1,67 +1,138 @@
-# Payload Blank Template
+# Payload CMS – Multi-Tenant Form Builder with Supabase & Vercel
 
-This template comes configured with the bare minimum to get started on anything you need.
+This project is a fully functional backend CMS built using [Payload CMS](https://payloadcms.com/), integrated with:
 
-## Quick start
+- **Supabase** (PostgreSQL DB)
+- **@payloadcms/plugin-form-builder** (Customizable forms)
+- **@payloadcms/plugin-multi-tenant** (Tenant-level access control)
+- **Vercel** (Frontend/Backend deployment)
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+---
 
-## Quick Start - local setup
+## 🌐 Live Demo
 
-To spin up this template locally, follow these steps:
+> Add your Vercel URL once deployed  
+Example: [https://your-cms.vercel.app/admin](https://your-cms.vercel.app/admin)
 
-### Clone
+---
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+## ⚙️ Features
 
-### Development
+- ✅ Payload CMS Admin Panel (publicly accessible)
+- ✅ Multi-Tenant setup: Each tenant has isolated forms/submissions
+- ✅ Contact Form with Name, Email, and Message fields
+- ✅ Supabase used as a managed Postgres backend
+- ✅ Fully deployed on Vercel (Free Tier)
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URI` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+---
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+## 🧑‍💻 Setup Instructions
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+### 1. Clone the repo
 
-#### Docker (Optional)
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+### 2. Install dependencies
 
-To do so, follow these steps:
+```bash
+npm install
+```
 
-- Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+### 3. Configure environment
 
-## How it works
+Create a `.env` file in the root:
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+```env
+PAYLOAD_SECRET=your-secret
+DATABASE_URI=your-supabase-postgres-uri
+SERVER_URL=http://localhost:3000
+```
 
-### Collections
+Get `DATABASE_URI` from [Supabase](https://supabase.com/):
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+```
+postgresql://<user>:<password>@<host>:5432/postgres
+```
 
-- #### Users (Authentication)
+### 4. Run locally
 
-  Users are auth-enabled collections that have access to the admin panel.
+```bash
+npm run dev
+```
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+---
 
-- #### Media
+## 🚀 Deployment (Vercel)
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+1. Push this project to a GitHub repo.
+2. Connect the repo to [Vercel](https://vercel.com/).
+3. Add the following environment variables in Vercel project settings:
 
-### Docker
+```
+PAYLOAD_SECRET=
+DATABASE_URI=
+SERVER_URL=https://your-vercel-domain.vercel.app
+```
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+4. Set `Build Command`: `npm run build`
+5. Set `Output Directory`: `.output`
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+---
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+## 📁 Folder Structure
 
-## Questions
+```
+├── payload.config.ts        # Main Payload configuration
+├── src/
+│   └── app/                 # Next.js frontend (optional)
+├── collections/             # Tenants, Users
+├── plugins/                 # Multi-tenant & FormBuilder plugins
+├── .env                     # Environment variables
+```
 
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+---
+
+## 🧩 Plugins Used
+
+### 🔹 @payloadcms/plugin-form-builder
+
+> Allows admin to create and manage form fields and collect responses.
+
+- `GET /api/form-builder/forms/:id` – fetch a form
+- `POST /api/form-builder/submissions` – submit a response
+
+### 🔸 @payloadcms/plugin-multi-tenant
+
+> Enforces tenant-level access to forms and submissions.
+
+- Tenants and Users must be associated via a `relationship` field.
+- Each user only sees their tenant's forms/submissions.
+
+---
+
+## ✅ Collections
+
+- **Tenants** – Holds organization names
+- **Users** – Auth-enabled, each linked to a `tenant`
+- **Form Submissions** – Auto-generated by FormBuilder plugin
+
+---
+
+## 👥 Multi-Tenancy Example
+
+- **Tenant A**: Sees only their forms/submissions
+- **Tenant B**: Cannot access A's data
+
+---
+
+## ✍️ Author
+
+**Aneesha Varma**  
+_BTech student • Backend Developer • Cloud & Security Enthusiast_
+
+---
+
+> Built with ❤️ using Payload, Supabase, and Vercel
