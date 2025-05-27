@@ -7,6 +7,7 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   fields: [
+    { name: 'tenant', type: 'relationship', relationTo: 'tenants', required: false }
     // Email added by default
     // Add more fields as needed
   ],
