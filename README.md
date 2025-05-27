@@ -11,8 +11,7 @@ This project is a fully functional backend CMS built using [Payload CMS](https:/
 
 ## 🌐 Live Demo
 
-> Add your Vercel URL once deployed  
-Example: [https://your-cms.vercel.app/admin](https://your-cms.vercel.app/admin)
+[https://your-cms.vercel.app/admin]((https://my-cms-five.vercel.app/))
 
 ---
 
